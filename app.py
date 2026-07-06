@@ -6,6 +6,7 @@ load_dotenv()
 
 from flask import Flask, request, jsonify, render_template
 from flask_login import login_required, current_user
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from extensions import db, login_manager
 from models import User
@@ -17,8 +18,17 @@ from query_understanding import parse_query
 from review_aggregator import enrich_products_with_reviews
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_proto=1,
+    x_host=1
+)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///users.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+    "DATABASE_URL",
+    "sqlite:////tmp/users.db"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
@@ -26,7 +36,8 @@ login_manager.init_app(app)
 init_oauth(app)
 app.register_blueprint(auth_bp)
 
-with app.app_context():
+@app.before_request
+def create_tables():
     db.create_all()
 
 
@@ -81,4 +92,4 @@ def chat():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=False)
