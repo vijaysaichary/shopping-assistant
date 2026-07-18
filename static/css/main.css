@@ -409,6 +409,7 @@ button { font-family: inherit; }
 }
 
 .product-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -422,6 +423,7 @@ button { font-family: inherit; }
 .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
 .product-card .img-wrap {
+  position: relative;
   background: linear-gradient(135deg, #f4f6fb, #eef0fa);
   height: 150px;
   display: flex; align-items: center; justify-content: center;
@@ -433,6 +435,52 @@ button { font-family: inherit; }
   transition: transform 0.3s ease;
 }
 .product-card:hover .img-wrap img { transform: scale(1.08); }
+
+/* AI Trust Score badge */
+.trust-score-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: help;
+}
+.trust-score-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: conic-gradient(var(--trust-color) calc(var(--pct) * 1%), rgba(0, 0, 0, 0.18) 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  animation: trustRingIn 0.5s ease both;
+}
+@keyframes trustRingIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+.trust-score-inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.trust-score-num { font-weight: 800; font-size: 0.92rem; color: var(--text); }
+.trust-score-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
 
 .product-card .card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .product-card .title {
@@ -460,6 +508,60 @@ button { font-family: inherit; }
 }
 .product-card .buy-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
+.deal-optimizer-btn {
+  margin-top: 4px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.deal-optimizer-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Decision Report (Module 9) checklist preview */
+.decision-checklist { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+.checklist-preview {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.checklist-preview li {
+  font-size: 0.76rem;
+  color: var(--success);
+  font-weight: 600;
+}
+.checklist-more { font-size: 0.72rem; color: var(--text-muted); }
+.checklist-caution-badge {
+  font-size: 0.72rem;
+  color: var(--warning);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Smart Recommendation Labels (Module 10) */
+.smart-labels-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.smart-label-chip {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--primary-gradient);
+  color: #fff;
+  white-space: nowrap;
+}
+
 .badge {
   display: inline-block;
   font-size: 0.7rem;
@@ -469,6 +571,115 @@ button { font-family: inherit; }
   background: var(--primary-gradient);
   color: #fff;
   width: fit-content;
+}
+
+/* AI Review Intelligence panel */
+.ai-review-toggle {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 0;
+  margin-top: 2px;
+}
+.ai-review-toggle:hover { text-decoration: underline; }
+
+.ai-review-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-top: 2px;
+  animation: fadeIn 0.25s ease both;
+}
+.ai-review-panel[hidden] { display: none; }
+.review-section h4 {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.review-section ul {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.chip-mini-row { display: flex; flex-wrap: wrap; gap: 4px; }
+.mini-chip {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.reliability-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.disagreement-note {
+  font-size: 0.76rem;
+  color: var(--warning);
+  background: rgba(217, 119, 6, 0.1);
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+.source-summary {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.review-confidence {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: right;
+  font-style: italic;
+}
+
+/* Price Intelligence */
+.deal-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: var(--deal-color);
+  background: color-mix(in srgb, var(--deal-color) 15%, transparent);
+  border: 1px solid var(--deal-color);
+  cursor: help;
+}
+.price-context {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Seller Trust */
+.seller-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  cursor: help;
+}
+.seller-trust-chip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: var(--seller-color);
+  background: color-mix(in srgb, var(--seller-color) 15%, transparent);
+  border: 1px solid var(--seller-color);
+  white-space: nowrap;
 }
 
 /* ---------- Skeleton ---------- */
@@ -507,6 +718,181 @@ button { font-family: inherit; }
   cursor: pointer; font-size: 0.78rem;
 }
 .recent-searches .tag:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ---------- Product Comparison ---------- */
+.compare-checkbox-wrap {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px 3px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.compare-checkbox-wrap input { margin: 0; cursor: pointer; accent-color: var(--primary); }
+.compare-checkbox-wrap:has(input:checked) { color: var(--primary); border-color: var(--primary); }
+
+.compare-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 12px 10px 20px;
+  box-shadow: var(--shadow-lg);
+  z-index: 40;
+  animation: fadeIn 0.25s ease both;
+}
+/* Elements toggled via the HTML `hidden` attribute also declare their own
+   `display` above for when they're shown — but an author stylesheet's
+   `display` rule can win the cascade over the UA stylesheet's
+   `[hidden] { display: none }` at equal specificity, so it must be pinned
+   back to none explicitly whenever the attribute is present. Without this,
+   these render (empty) on every page load instead of staying hidden. */
+.compare-bar[hidden] { display: none; }
+.compare-bar span { font-size: 0.88rem; font-weight: 600; }
+.compare-bar-actions { display: flex; gap: 8px; }
+.compare-bar .btn { padding: 8px 16px; font-size: 0.85rem; }
+
+.compare-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+.compare-modal-overlay[hidden] { display: none; }
+.compare-modal {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 900px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 28px;
+  animation: fadeSlideUp 0.3s ease both;
+}
+.compare-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.compare-winner-banner {
+  background: var(--primary-gradient);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.compare-winner-banner .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.85; }
+.compare-winner-banner .title { font-size: 1.15rem; font-weight: 800; margin: 4px 0; }
+.compare-winner-banner .verdict { font-size: 0.88rem; line-height: 1.5; opacity: 0.95; }
+
+.compare-table-wrap { overflow-x: auto; margin-bottom: 20px; }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.compare-table th, .compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+.compare-table th { color: var(--text-muted); font-weight: 700; font-size: 0.78rem; }
+.compare-table td.winner-cell { color: var(--success); font-weight: 700; }
+
+.compare-pros-cons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.compare-product-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+.compare-product-block h4 { margin: 0 0 8px; font-size: 0.9rem; }
+.compare-product-block ul { margin: 0 0 8px; padding-left: 16px; font-size: 0.8rem; line-height: 1.5; }
+.compare-product-block .cons-list { color: var(--danger); }
+.compare-product-block .pros-list { color: var(--success); }
+
+/* Deal Optimizer */
+.deal-modal { max-width: 480px; }
+.deal-price-row { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 14px; }
+.deal-price-row strong { color: var(--text); }
+
+.offer-row {
+  display: grid;
+  grid-template-columns: 1fr 90px 60px auto;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.offer-row select, .offer-row input {
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+.offer-row .offer-remove-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 6px;
+}
+
+.deal-add-offer-btn {
+  background: none;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  margin: 4px 0 16px;
+}
+.deal-add-offer-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+.deal-result {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 12px;
+}
+.deal-result-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 4px 0; }
+.deal-result-row.final { font-size: 1.1rem; font-weight: 800; color: var(--success); border-top: 1px solid var(--border); margin-top: 6px; padding-top: 10px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {

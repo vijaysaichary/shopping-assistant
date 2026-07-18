@@ -1,11 +1,12 @@
 import os
 import json
 import re
+from pathlib import Path
 
 from groq import Groq
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
@@ -87,7 +88,7 @@ External review mentions found across the web:
 Platform coverage (number of mentions found): {platform_counts}
 Total external sources checked: {total_sources}
 
-Write a concise 2-3 sentence recommendation reason for this product. State that it was cross-checked across YouTube, Reddit, Twitter/X, Instagram, and Facebook ({total_sources} sources total), and briefly summarize what those sources commonly say about it (praise or complaints). If no external snippets were found, say so plainly and base the reason on the shopping rating and review count instead. Plain text only, no markdown."""
+Write a concise 2-3 sentence recommendation reason for this product. State that it was cross-checked across YouTube, Reddit, and Twitter/X ({total_sources} sources total), and briefly summarize what those sources commonly say about it (praise or complaints). If no external snippets were found, say so plainly and base the reason on the shopping rating and review count instead. Plain text only, no markdown."""
 
     response = _client.chat.completions.create(
         model=MODEL,

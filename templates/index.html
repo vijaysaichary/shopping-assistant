@@ -66,7 +66,33 @@
 
   <div class="recent-searches" id="recentSearches"></div>
 
+  {% if welcome_message %}
+  <div id="welcomeMessageData" data-message="{{ welcome_message }}" hidden></div>
+  {% endif %}
+
   <div class="chat-area" id="chatArea"></div>
+</div>
+
+<div class="compare-bar" id="compareBar" hidden>
+  <span id="compareCount">0 selected</span>
+  <div class="compare-bar-actions">
+    <button type="button" class="btn btn-outline" id="compareClearBtn">Clear</button>
+    <button type="button" class="btn btn-primary" id="compareGoBtn">Compare</button>
+  </div>
+</div>
+
+<div class="compare-modal-overlay" id="compareModalOverlay" hidden>
+  <div class="compare-modal">
+    <button type="button" class="compare-modal-close" id="compareModalClose">✕</button>
+    <div id="compareModalBody"></div>
+  </div>
+</div>
+
+<div class="compare-modal-overlay" id="dealModalOverlay" hidden>
+  <div class="compare-modal deal-modal">
+    <button type="button" class="compare-modal-close" id="dealModalClose">✕</button>
+    <div id="dealModalBody"></div>
+  </div>
 </div>
 
 <script src="{{ url_for('static', filename='js/app.js') }}"></script>

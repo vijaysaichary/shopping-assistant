@@ -5,3 +5,8 @@ users.db
 server_out.log
 server_err.log
 instance/
+
+# Working copy of the app now lives at repo root (see this commit) — this
+# folder is the old dev location, kept locally but no longer tracked here
+# to avoid re-adding it as a broken nested-repo/gitlink entry.
+shopping_assistant/
